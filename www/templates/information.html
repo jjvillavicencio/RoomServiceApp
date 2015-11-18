@@ -1,20 +1,45 @@
+<!DOCTYPE html>
 <html>
-<ion-view view-title="Home">
-  <ion-content class="padding">
-    <div class="list card">
-      <div class="item-divider">
-        <h1 class="title text-center">Howard Johnson</h1>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <ion-view view-title="Promociones" on-swipe-left="toRoom()" on-swipe-right="toHome()">
+    <ion-content class="padding">
+
+      <div class="list">
+        <div ng-repeat="promocion in promociones">
+          <div class="list card">
+
+
+            <div class="item item-body" style="text-align:center;">
+              <h2><b>{{promocion.tituloOferta}}</b></h2>
+              <p>{{promocion.descripcion}}</p>
+            </div>
+
+
+            <div class="item item-image">
+              <img src="{{promocion.imagen}}">
+            </div>
+
+            <a class="item item-icon-left assertive" href="#">
+              <i class="icon ion-cash"></i>
+              Precio: {{promocion.precio|currency}}
+            </a>
+
+            <a class="item item-icon-left calm" href="#">
+              <i class="icon ion-ios-timer-outline"></i>
+              Oferta expira: {{promocion.tope}}
+            </a>
+
+          </div>
+        </div>
+
       </div>
-      <div class="item item-body">
-        <img src="img/fachada.jpg" class="full-image"  alt="" />
-        <p>
-          El hotel Howard Johnson Loja se encuentra en la ciudadela Zamora,
-          sector estratégico, residencial que se caracteriza por su seguridad y
-          tranquilidad. Estamos a 5 minutos del centro de la ciudad y a 45
-          minutos del aeropuerto Camilo Ponce Enrique de Catamayo
-        </p>
-      </div>
-    </div>
-  </ion-content>
-</ion-view>
+
+
+    </ion-content>
+  </ion-view>
+</body>
 </html>

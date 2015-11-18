@@ -51,13 +51,28 @@ angular.module('starter', ['ionic','firebase'])
   $urlRouterProvider.otherwise('/home');
 })
 
-.controller('homeCtrl', function ($scope) {
-  // body...
-})
+.controller('homeCtrl',['$scope', '$location', function ($scope, $location) {
+  $scope.toInf = function(){
+        $location.url("/inf");
+    }
+}])
 
-.controller('infCtrl', function ($scope) {
-  // body...
-})
+.controller('infCtrl', ['$scope', '$firebaseArray','$location',  function ($scope, $firebaseArray, $location) {
+
+  //---Recupero array de promociones
+  var misPromociones = new Firebase('https://redesutpl.firebaseio.com/promociones');
+  $scope.promociones = $firebaseArray(misPromociones);
+  console.log($scope.productos);
+  //---
+
+  $scope.toHome = function(){
+        $location.url("/home");
+    };
+    $scope.toRoom = function(){
+          $location.url("/roomService");
+      };
+
+}])
 
 .controller('roomservCtrl', ['$scope', '$firebaseArray', function ($scope, $firebaseArray) {
 
