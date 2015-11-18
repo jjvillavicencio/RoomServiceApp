@@ -1,20 +1,64 @@
 <html>
+<!--VISTA PRINCIPAL DE LA APP-->
 <ion-view view-title="Home">
   <ion-content class="padding">
     <div class="list card">
-      <div class="item-divider">
-        <h1 class="title text-center">Howard Johnson</h1>
+
+      <!--TITULO Y LOGO DE LA VISTA HOME-->
+      <div style="text-align:center;" class="item item-thumbnail-left" >
+        <img src="img/logo.png" style="background-color:black; border-radius: 15%;">
+        <h2><b>Hotel Howard Johnson</b></h2>
+        <h4>
+          Un lugar donde el cuerpo y el alma <BR>recuperan la calma.
+          </h4>
+        </div>
+        <!--CUERPO DE LA VISTA HOME-->
+        <div class="item item-body">
+          <!--CARRUSEL DE IMAGENES -->
+          <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="true" disable-scroll="false" does-continue="true">
+            <ion-slide>
+              <div class="box">
+                <img src="img/fachada.jpg" class="full-image"  alt="" />
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="box">
+                <img src="img/slide1.jpg" class="full-image"  alt="" />
+              </div>
+            </ion-slide>
+            <ion-slide>
+              <div class="box">
+                <img src="img/slide2.jpg" class="full-image"  alt="" />
+              </div>
+            </ion-slide>
+
+          </ion-slide-box>
+
+          <!--DESCRIPCIÓN DEL HOTEL-->
+          <p>
+            El hotel Howard Johnson Loja se encuentra en la ciudadela Zamora,
+            sector estratégico, residencial que se caracteriza por su seguridad y
+            tranquilidad. Estamos a 5 minutos del centro de la ciudad y a 45
+            minutos del aeropuerto Camilo Ponce Enrique de Catamayo
+          </p>
+        </div>
+
+        <!--BOTONES A REDES SOCIALES-->
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" onclick="window.open('https://www.facebook.com/pages/Howard-Johnson-Loja/169502573114976?fref=ts', '_system', 'location=yes'); return false;" href="#">
+            <i class="icon ion-social-facebook"></i>
+            Facebook
+          </a>
+          <a class="tab-item" onclick="window.open('https://twitter.com/search?vertical=default&q=haward%20Johnson%20loja&src=sprv', '_system', 'location=yes'); return false;"  href="#">
+            <i class="icon ion-social-twitter"></i>
+            Twitter
+          </a>
+          <a class="tab-item" onclick="window.open('https://www.google.com/maps/place/Hotel+Howard+Johnson+Loja/@-3.993362,-79.197521,15z/data=!4m2!3m1!1s0x0:0x32dd2cb8f5db164?sa=X&ved=0CI0BEPwSMA1qFQoTCLyy5qvhmckCFUmKkAodRLkEQg', '_system', 'location=yes'); return false;"  href="#">
+            <i class="icon ion-android-map"></i>
+            Mapa
+          </a>
+        </div>
       </div>
-      <div class="item item-body">
-        <img src="img/fachada.jpg" class="full-image"  alt="" />
-        <p>
-          El hotel Howard Johnson Loja se encuentra en la ciudadela Zamora,
-          sector estratégico, residencial que se caracteriza por su seguridad y
-          tranquilidad. Estamos a 5 minutos del centro de la ciudad y a 45
-          minutos del aeropuerto Camilo Ponce Enrique de Catamayo
-        </p>
-      </div>
-    </div>
-  </ion-content>
-</ion-view>
-</html>
+    </ion-content>
+  </ion-view>
+  </html>
