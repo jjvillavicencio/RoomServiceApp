@@ -1,0 +1,39 @@
+<html>
+<ion-view view-title="Room Service">
+  <ion-content class="padding">
+
+    <p>
+      Para activar el servico a la habitación debe ingresar su código de usuario.
+    </p>
+    <div class="list">
+
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" ng-model="codigo" placeholder="Código de Cliente">
+        </label>
+        <button ng-click="probarCod(codigo)" ng-model="comprobar" class="button button-small">
+          Comprobar
+        </button>
+      </div>
+    </div>
+
+    <div ng-show="error" class="list card">
+      <div class="item item-body">
+        El código ingresado no es válido.
+      </div>
+    </div>
+
+    <div ng-show="lista" class="list">
+      <div ng-repeat="producto in productos">
+      <ion-checkbox class=""    ng-model="producto.codigoProducto">
+          <img src="../img/whisky-chile.jpg">
+          <h2>{{producto.nombreProducto}}</h2>
+          <p>{{producto.descripcion}}</p>
+          <p class="badge badge-assertive">Precio: {{producto.precio | currency}}</p>
+          <p class=""><span class="badge badge-positive" style="margin-top:10%"> Restantes:{{producto.disponibles}}</span></p>
+      </ion-checkbox>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+</html>
