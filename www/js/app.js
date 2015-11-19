@@ -46,15 +46,15 @@ angular.module('starter', ['ionic','firebase'])
         controller: 'roomservCtrl'
       }
     }
-  })
+  });
 
   $urlRouterProvider.otherwise('/home');
 })
 
 .controller('homeCtrl',['$scope', '$location', function ($scope, $location) {
   $scope.toInf = function(){
-        $location.url("/inf");
-    }
+    $location.url("/inf");
+  };
 }])
 
 .controller('infCtrl', ['$scope', '$firebaseArray','$location',  function ($scope, $firebaseArray, $location) {
@@ -62,40 +62,60 @@ angular.module('starter', ['ionic','firebase'])
   //---Recupero array de promociones
   var misPromociones = new Firebase('https://redesutpl.firebaseio.com/promociones');
   $scope.promociones = $firebaseArray(misPromociones);
-  console.log($scope.productos);
   //---
 
   $scope.toHome = function(){
-        $location.url("/home");
-    };
-    $scope.toRoom = function(){
-          $location.url("/roomService");
-      };
+    $location.url("/home");
+  };
+  $scope.toRoom = function(){
+    $location.url("/roomService");
+  };
 
 }])
 
-.controller('roomservCtrl', ['$scope', '$firebaseArray', function ($scope, $firebaseArray) {
-
+.controller('roomservCtrl', ['$scope', '$firebaseArray', '$location', function ($scope, $firebaseArray, $location) {
+  $scope.cantidad = 0;
   //---Recupero array de productos
-  var misProductos = new Firebase('https://redesutpl.firebaseio.com/productos');
+  var url = new Firebase('https://redesutpl.firebaseio.com');
+  var misProductos = url.child("productos");
   $scope.productos = $firebaseArray(misProductos);
-  console.log($scope.productos);
   //---
+  var ref = url.child("clientes");
+
+  $scope.toInf = function(){
+    $location.url("/inf");
+  };
 
 
-
-  $scope.lista = true;
+  $scope.lista = false;
   $scope.error = false;
 
   $scope.probarCod = function (val) {
-    if (val == '123') {
+    var query = ref.orderByChild("codigoCliente").equalTo(""+val);
+    var datos;
+    var res;
+    $scope.usuarios = $firebaseArray(query);
+
+    query.on("value", function(snapshot) {
+      res = snapshot.numChildren();
+      console.log(res);
+    });
+
+    if (res==1) {
       $scope.lista = true;
       $scope.error = false;
     }else{
+      $scope.lista = false;
       $scope.error = true;
     }
 
+    query.on("value", function(snapshot) {
+      snapshot.forEach(function (data) {
+        data.val();
+        datos = data;
+      });
+    });
+    console.log(datos.val());
   };
-
 
 }]);

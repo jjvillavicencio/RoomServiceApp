@@ -1,6 +1,12 @@
 <html>
+<style>
+.item .badge + .badge {
+  margin-right: 0px;
+  margin-top: 10%;
+}
+</style>
 <ion-view view-title="Room Service">
-  <ion-content class="padding">
+  <ion-content class="padding" on-swipe-right="toInf()">
 
     <p>
       Para activar el servico a la habitación debe ingresar su código de usuario.
@@ -22,16 +28,31 @@
         El código ingresado no es válido.
       </div>
     </div>
-
     <div ng-show="lista" class="list">
+    <div  class="list card">
+      <div class="item item-body" ng-repeat="usuario in usuarios">
+        Bienvenido, {{usuario.nombreCliente}}
+      </div>
+    </div>
+    <div class="item item-divider balanced">
+      <i class="ion ion-card"></i>
+      <b>Valor a pagar<b>: <span class="assertive">$25.00</span>
+    </div>
       <div ng-repeat="producto in productos">
-      <ion-checkbox class=""    ng-model="producto.codigoProducto">
-          <img src="../img/whisky-chile.jpg">
+        <ion-checkbox class=""    ng-model="producto.codigoProducto">
+          <img src="{{producto.imagen}}" style="width:35%;">
           <h2>{{producto.nombreProducto}}</h2>
           <p>{{producto.descripcion}}</p>
-          <p class="badge badge-assertive">Precio: {{producto.precio | currency}}</p>
-          <p class=""><span class="badge badge-positive" style="margin-top:10%"> Restantes:{{producto.disponibles}}</span></p>
-      </ion-checkbox>
+          <p class="badge badge-assertive" style="width:35%;">Precio: {{producto.precio | currency}}</p>
+          <p class="badge badge-positive" style="width:35%;"> Restantes:{{producto.disponibles}}</p>
+
+        </ion-checkbox>
+        <div class="item range range-positive">
+          <i class="icon ion-minus-circled"></i>
+          <input type="range" name="cantPed" ng-change="cant" ng-model="cantidad" min="1" step="1" max="{{producto.disponibles}}" >
+          <i class="icon ion-plus-circled"></i>
+          <p>cant: {{cantidad}}</p>
+        </div>
       </div>
     </div>
   </ion-content>
