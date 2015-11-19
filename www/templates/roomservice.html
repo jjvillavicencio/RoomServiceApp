@@ -1,8 +1,9 @@
 <html>
 <style>
-.item .badge + .badge {
-  margin-right: 0px;
-  margin-top: 10%;
+.button-large {
+    font-size: 15px;
+    line-height: 25px;
+    min-height: 5px;
 }
 </style>
 <ion-view view-title="Room Service">
@@ -29,30 +30,39 @@
       </div>
     </div>
     <div ng-show="lista" class="list">
-    <div  class="list card">
-      <div class="item item-body" ng-repeat="usuario in usuarios">
-        Bienvenido, {{usuario.nombreCliente}}
-      </div>
-    </div>
-    <div class="item item-divider balanced">
-      <i class="ion ion-card"></i>
-      <b>Valor a pagar<b>: <span class="assertive">$25.00</span>
-    </div>
-      <div ng-repeat="producto in productos">
-        <ion-checkbox class=""    ng-model="producto.codigoProducto">
-          <img src="{{producto.imagen}}" style="width:35%;">
-          <h2>{{producto.nombreProducto}}</h2>
-          <p>{{producto.descripcion}}</p>
-          <p class="badge badge-assertive" style="width:35%;">Precio: {{producto.precio | currency}}</p>
-          <p class="badge badge-positive" style="width:35%;"> Restantes:{{producto.disponibles}}</p>
-
-        </ion-checkbox>
-        <div class="item range range-positive">
-          <i class="icon ion-minus-circled"></i>
-          <input type="range" name="cantPed" ng-change="cant" ng-model="cantidad" min="1" step="1" max="{{producto.disponibles}}" >
-          <i class="icon ion-plus-circled"></i>
-          <p>cant: {{cantidad}}</p>
+      <div  class="list card">
+        <div class="item item-body" ng-repeat="usuario in usuarios">
+          Bienvenido, {{usuario.nombreCliente}}
         </div>
+      </div>
+      <div class="item item-body balanced">
+        <i class="ion ion-card"></i>
+        <b>Valor a pagar</b>: <span class="assertive">{{sumatoria | currency}}</span>
+        <button class="button button-large button-positive">
+          Pedir
+        </button>
+      </div>
+
+      <div>
+        <div class="list card" ng-repeat="producto in productos">
+          <label for="{{producto.codigoProducto}}" class="checkbox" style="text-align=center">
+            <input type="checkbox" ng-change="adds(producto)" ng-model="selection[producto.codigoProducto]['compra']" name="group" id="{{producto.codigoProducto}}" />
+            <img src="{{producto.imagen}}" style="width:45%; float:left;">
+            <h2>{{producto.nombreProducto}}</h2>
+            <p>{{producto.descripcion}}</p>
+            <div style="clear:left;">
+              <p class="badge badge-assertive" style="width:45%;">Precio: {{producto.precio | currency}}</p>
+              <p class="badge badge-positive" style="width:45%;"> Restantes:{{producto.disponibles}}</p>
+            </div>
+          </label>
+          <div class="item range range-positive">
+            <i class="icon ion-minus-circled"></i>
+            <input type="range" ng-change="suma()" name="cantPed" ng-model="selection[producto.codigoProducto]['cantidad']" min="1" step="1" max="{{producto.disponibles}}" value="1" >
+            <i class="icon ion-plus-circled"></i>
+            <p>cant: {{selection[producto.codigoProducto]['cantidad']}}</p>
+          </div>
+        </div>
+        <pre ng-bind="selection | json"></pre>
       </div>
     </div>
   </ion-content>

@@ -73,19 +73,52 @@ angular.module('starter', ['ionic','firebase'])
 
 }])
 
-.controller('roomservCtrl', ['$scope', '$firebaseArray', '$location', function ($scope, $firebaseArray, $location) {
-  $scope.cantidad = 0;
+.controller('roomservCtrl', ['$scope', '$firebaseArray', '$location','$ionicPopup', function ($scope, $firebaseArray, $location, $ionicPopup) {
+
+  $scope.selection = {
+  };
+
+
   //---Recupero array de productos
   var url = new Firebase('https://redesutpl.firebaseio.com');
   var misProductos = url.child("productos");
   $scope.productos = $firebaseArray(misProductos);
   //---
   var ref = url.child("clientes");
-
+  $scope.sumatoria = 0;
   $scope.toInf = function(){
     $location.url("/inf");
   };
+  $scope.adds = function (producto) {
+    //console.log(producto.codigoProducto);
+    var codigoPr = producto.codigoProducto;
+    $scope.selection[codigoPr].cantidad = 1;
+    $scope.suma();
+  };
 
+
+  $scope.suma = function () {
+    $scope.sumatoria = 0;
+    for (var sel in $scope.selection) {
+      var cons = $scope.selection[sel].compra;
+      if (cons) {
+
+        for (var producto in $scope.productos) {
+          var compa = $scope.productos[producto].codigoProducto;
+          //console.log(compa);
+          //console.log(sel);
+          if (compa == sel && typeof(compa)!='undefined') {
+            //console.log(sel);
+            //console.log($scope.sumatoria);
+            //console.log($scope.productos[producto].precio);
+            $scope.sumatoria = parseFloat($scope.sumatoria) + (parseFloat($scope.productos[producto].precio) * parseInt($scope.selection[sel].cantidad));
+
+          }
+        }
+
+      }
+    }
+  };
 
   $scope.lista = false;
   $scope.error = false;
@@ -109,13 +142,22 @@ angular.module('starter', ['ionic','firebase'])
       $scope.error = true;
     }
 
-    query.on("value", function(snapshot) {
-      snapshot.forEach(function (data) {
-        data.val();
-        datos = data;
+    try{
+      query.on("value", function(snapshot) {
+        snapshot.forEach(function (data) {
+          data.val();
+          datos = data;
+        });
       });
-    });
-    console.log(datos.val());
+      console.log(datos.val());
+    }catch(e){
+      console.log("este:error"+e);
+      // An alert dialog
+      $ionicPopup.alert({
+        title: 'Error',
+        template: 'Por favor, intente de nuevo.'
+      });
+    }
   };
 
 }]);
