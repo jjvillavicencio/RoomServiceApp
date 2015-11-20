@@ -73,11 +73,10 @@ angular.module('starter', ['ionic','firebase'])
 
 }])
 
-.controller('roomservCtrl', ['$scope', '$firebaseArray', '$location','$ionicPopup','$interval', function ($scope, $firebaseArray, $location, $ionicPopup,$interval) {
+.controller('roomservCtrl', ['$scope', '$firebaseArray', '$location','$ionicPopup','$interval', '$filter', function ($scope, $firebaseArray, $location, $ionicPopup, $interval, $filter) {
 
   $scope.selection = {
   };
-
 
   //---Recupero array de productos
   var url = new Firebase('https://redesutpl.firebaseio.com');
@@ -97,6 +96,7 @@ angular.module('starter', ['ionic','firebase'])
     //console.log(producto.codigoProducto);
     var codigoPr = producto.codigoProducto;
     $scope.selection[codigoPr].cantidad = 1;
+    $scope.selection[codigoPr].nombrePr = producto.nombreProducto;
     $scope.suma();
   };
 
@@ -114,9 +114,10 @@ angular.module('starter', ['ionic','firebase'])
           if (compa == sel && typeof(compa)!='undefined') {
             //console.log(sel);
             //console.log($scope.sumatoria);
-            //console.log($scope.productos[producto].precio);
+            $scope.selection[compa].key = $scope.productos[producto].$id;
             $scope.sumatoria = parseFloat($scope.sumatoria) + (parseFloat($scope.productos[producto].precio) * parseInt($scope.selection[sel].cantidad));
-
+            $scope.selection[compa].precioUnit = parseFloat($scope.productos[producto].precio);
+            $scope.selection[compa].disponibles = parseFloat($scope.productos[producto].disponibles);
           }
         }
 
@@ -125,9 +126,9 @@ angular.module('starter', ['ionic','firebase'])
   };
 
   function callAtInterval() {
-      $scope.lista = false;
-      $scope.selection = {
-      };
+    $scope.lista = false;
+    $scope.selection = {
+    };
 
   }
 
@@ -152,7 +153,7 @@ angular.module('starter', ['ionic','firebase'])
 
     if (res==1) {
       $scope.lista = true;
-      $interval(callAtInterval,60000);
+      $interval(callAtInterval,300000);
     }else{
       $scope.lista = false;
       if(typeof(compa)!='undefined' && res===0){
@@ -175,16 +176,63 @@ angular.module('starter', ['ionic','firebase'])
     }
   };
   //FUNCIÓN PARA AGREGAR PEDIDO
-    $scope.agregarPedido = function  () {
-        misPedidos.push({
-            nombreCliente : "1",
-            apellidoCliente : "2",
-            cedulaCliente : "3",
-            habitacionCliente : "4",
-            codigoCliente : "5"
-        });
-        //limpiarForm();
-    };
+
+
+  $scope.agregarPedido = function  () {
+    var cont = 0;
+    var date = new Date();
+    var fecha = $filter('date')(new Date(), 'dd/MM/yyyy');
+    var hora = $filter('date')(new Date(), 'HH:mm');
+    var nombre = $scope.usuarios[0].nombreCliente;
+    var apellido = $scope.usuarios[0].apellidoCliente;
+    var habitacion = $scope.usuarios[0].habitacionCliente;
+    var canPedidos = contar();
+    for (var sel in $scope.selection) {
+      var cons = $scope.selection[sel].compra;
+      if (cons) {
+        cont = cont+1;
+        var nombrePr = $scope.selection[sel].nombrePr;
+        var cantidadPr = $scope.selection[sel].cantidad;
+        var precioUnit = $scope.selection[sel].precioUnit;
+        var disponibles = $scope.selection[sel].disponibles;
+        var key = $scope.selection[sel].key;
+        try{
+          misPedidos.push({
+            fechaPedido: fecha,
+            horaPedido: hora,
+            nombreCliente : nombre,
+            apellidoCliente : apellido,
+            habitacionCliente : habitacion,
+            productosPedidos : ""+cont+"/"+canPedidos,
+            codigoProducto : sel,
+            nombreProducto : nombrePr,
+            cantidad : cantidadPr,
+            subTotal : cantidadPr*precioUnit,
+            total : $scope.sumatoria
+          });
+          misProductos.child(key).update({
+            "disponibles" : parseFloat(disponibles)-parseFloat(cantidadPr)
+          });
+          popPup("Éxito","Pedido realizado con éxito.");
+          callAtInterval();
+        }catch(e){
+          popPup("ERROR","Pedido no realizad");
+        }
+      }
+    }
+
+  };
+
+  function contar () {
+    var contador = 0;
+    for (var sel in $scope.selection) {
+      var cons = $scope.selection[sel].compra;
+      if (cons) {
+        contador = parseFloat(contador) + 1;
+      }
+    }
+    return contador;
+  }
 
   function popPup(titulo, contenido) {
     $ionicPopup.alert({

@@ -14,37 +14,37 @@
             <h2><b>Bienvenido a nuestra sección de ofertas.</b></h2>
           </div>
 
-        <div ng-repeat="promocion in promociones">
-          <div class="list card">
+          <div ng-repeat="promocion in promociones">
+            <div class="list card">
 
 
-            <div class="item item-body" style="text-align:center;">
-              <h2><b>{{promocion.tituloOferta}}</b></h2>
-              <p>{{promocion.descripcion}}</p>
+              <div class="item item-body" style="text-align:center;">
+                <h2><b>{{promocion.tituloOferta}}</b></h2>
+                <p>{{promocion.descripcion}}</p>
+              </div>
+
+
+              <div class="item item-image">
+                <img src="{{promocion.imagen}}">
+              </div>
+
+              <a class="item item-icon-left assertive" href="#">
+                <i class="icon ion-cash"></i>
+                Precio: {{promocion.precio|currency}}
+              </a>
+
+              <a class="item item-icon-left calm" href="#">
+                <i class="icon ion-ios-timer-outline"></i>
+                Oferta expira: {{promocion.tope}}
+              </a>
+
             </div>
-
-
-            <div class="item item-image">
-              <img src="{{promocion.imagen}}">
-            </div>
-
-            <a class="item item-icon-left assertive" href="#">
-              <i class="icon ion-cash"></i>
-              Precio: {{promocion.precio|currency}}
-            </a>
-
-            <a class="item item-icon-left calm" href="#">
-              <i class="icon ion-ios-timer-outline"></i>
-              Oferta expira: {{promocion.tope}}
-            </a>
-
           </div>
+
         </div>
 
-      </div>
 
-
-    </ion-content>
-  </ion-view>
-</body>
-</html>
+      </ion-content>
+    </ion-view>
+  </body>
+  </html>
