@@ -84,6 +84,10 @@ angular.module('starter', ['ionic','firebase'])
   var misProductos = url.child("productos");
   $scope.productos = $firebaseArray(misProductos);
   //---
+
+  //CONEXIÓN A FIREBASE(PEDIDOS)
+  var misPedidos = url.child("pedidos");
+
   var ref = url.child("clientes");
   $scope.sumatoria = 0;
   $scope.toInf = function(){
@@ -171,15 +175,15 @@ angular.module('starter', ['ionic','firebase'])
     }
   };
   //FUNCIÓN PARA AGREGAR PEDIDO
-    $scope.agregarSubmit = function  () {
-        $scope.clientes.$add({
-            nombreCliente : $scope.nombreCliente,
-            apellidoCliente : $scope.apellidoCliente,
-            cedulaCliente : $scope.cedulaCliente,
-            habitacionCliente : $scope.habitacionCliente,
-            codigoCliente : $scope.codigoCliente
+    $scope.agregarPedido = function  () {
+        misPedidos.push({
+            nombreCliente : "1",
+            apellidoCliente : "2",
+            cedulaCliente : "3",
+            habitacionCliente : "4",
+            codigoCliente : "5"
         });
-        limpiarForm();
+        //limpiarForm();
     };
 
   function popPup(titulo, contenido) {
