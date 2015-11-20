@@ -188,9 +188,12 @@ angular.module('starter', ['ionic','firebase'])
     var habitacion = $scope.usuarios[0].habitacionCliente;
     var canPedidos = contar();
     for (var sel in $scope.selection) {
+      console.log(sel);
+      console.log( $scope.selection[sel].compra);
       var cons = $scope.selection[sel].compra;
       if (cons) {
         cont = cont+1;
+        console.log(cont);
         var nombrePr = $scope.selection[sel].nombrePr;
         var cantidadPr = $scope.selection[sel].cantidad;
         var precioUnit = $scope.selection[sel].precioUnit;
@@ -213,13 +216,13 @@ angular.module('starter', ['ionic','firebase'])
           misProductos.child(key).update({
             "disponibles" : parseFloat(disponibles)-parseFloat(cantidadPr)
           });
-          popPup("Éxito","Pedido realizado con éxito.");
-          callAtInterval();
         }catch(e){
           popPup("ERROR","Pedido no realizad");
         }
       }
     }
+    popPup("Éxito","Pedido realizado con éxito.");
+    callAtInterval();
 
   };
 
