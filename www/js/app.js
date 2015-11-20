@@ -73,7 +73,7 @@ angular.module('starter', ['ionic','firebase'])
 
 }])
 
-.controller('roomservCtrl', ['$scope', '$firebaseArray', '$location','$ionicPopup', function ($scope, $firebaseArray, $location, $ionicPopup) {
+.controller('roomservCtrl', ['$scope', '$firebaseArray', '$location','$ionicPopup','$interval', function ($scope, $firebaseArray, $location, $ionicPopup,$interval) {
 
   $scope.selection = {
   };
@@ -120,6 +120,15 @@ angular.module('starter', ['ionic','firebase'])
     }
   };
 
+  function callAtInterval() {
+      $scope.lista = false;
+      $scope.selection = {
+      };
+
+  }
+
+
+
   $scope.lista = false;
   $scope.error = false;
 
@@ -129,6 +138,9 @@ angular.module('starter', ['ionic','firebase'])
     var res;
     $scope.usuarios = $firebaseArray(query);
 
+    $scope.selection = {
+    };
+
     query.on("value", function(snapshot) {
       res = snapshot.numChildren();
       console.log(res);
@@ -136,10 +148,12 @@ angular.module('starter', ['ionic','firebase'])
 
     if (res==1) {
       $scope.lista = true;
-      $scope.error = false;
+      $interval(callAtInterval,60000);
     }else{
       $scope.lista = false;
-      $scope.error = true;
+      if(typeof(compa)!='undefined' && res===0){
+        popPup("Codigo Incorrecto", "Revise su código de acceso");
+      }
     }
 
     try{
@@ -153,11 +167,26 @@ angular.module('starter', ['ionic','firebase'])
     }catch(e){
       console.log("este:error"+e);
       // An alert dialog
-      $ionicPopup.alert({
-        title: 'Error',
-        template: 'Por favor, intente de nuevo.'
-      });
+      popPup("Error","Por favor, intente de nuevo.");
     }
   };
+  //FUNCIÓN PARA AGREGAR PEDIDO
+    $scope.agregarSubmit = function  () {
+        $scope.clientes.$add({
+            nombreCliente : $scope.nombreCliente,
+            apellidoCliente : $scope.apellidoCliente,
+            cedulaCliente : $scope.cedulaCliente,
+            habitacionCliente : $scope.habitacionCliente,
+            codigoCliente : $scope.codigoCliente
+        });
+        limpiarForm();
+    };
+
+  function popPup(titulo, contenido) {
+    $ionicPopup.alert({
+      title: titulo,
+      template: contenido
+    });
+  }
 
 }]);
