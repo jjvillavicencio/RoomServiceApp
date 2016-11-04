@@ -1,7 +1,8 @@
-starter.controller('infCtrl', ['$scope', '$firebaseArray', '$location', function ($scope, $firebaseArray, $location) {
+starter.controller('infCtrl', function ($scope, $firebaseArray, $firebaseAuth, $location) {
 
     //---Recupero array de promociones
-    var misPromociones = new Firebase('https://redesutpl.firebaseio.com/promociones');
+    var misPromociones = firebase.database().ref().child('promociones');
+    console.log(misPromociones);
     $scope.promociones = $firebaseArray(misPromociones);
     //---
 
@@ -12,4 +13,4 @@ starter.controller('infCtrl', ['$scope', '$firebaseArray', '$location', function
         $location.url("/roomService");
     };
 
-}]);
+});
