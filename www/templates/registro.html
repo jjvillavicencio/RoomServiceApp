@@ -5,27 +5,38 @@
     </ion-nav-bar>
     
     <ion-content class="padding">
-
+        <div ng-repeat="cli in clientes">
+            <div class="list card">
+                <div class="item item-body" style="text-align:center;">
+                    <h2><b>{{cli}}</b></h2>
+                    
+                </div>
+            </div>
+        </div>
+        <p>{{errores}}</p>
         <div class="list">
             
             <label class="item item-input item-floating-label">
             <span class="input-label">Número de identificación (C.I., DNI)</span>
-            <input type="number" placeholder="Número de identificación (C.I., DNI)" required>
+            <input type="number" placeholder="Número de identificación (C.I., DNI)" ng-model="ci" required>
         </label>
             <label class="item item-input item-floating-label">
             <span class="input-label">Email</span>
-            <input type="email" placeholder="Email" required>
+            <input type="email" placeholder="Email" ng-model="email" required>
         </label>
             <label class="item item-input item-floating-label">
             <span class="input-label">Contraseña</span>
-            <input type="password" placeholder="Contraseña" required>
+            <input type="password" placeholder="Contraseña" ng-model="password" required>
         </label>
             <label class="item item-input item-floating-label">
             <span class="input-label">Repetir Contraseña</span>
-            <input type="password" placeholder="Repetir Contraseña" required>
+            <input type="password" placeholder="Repetir Contraseña" ng-model="repassword" required>
         </label>
-            <button class="button button-block button-stable">
+            <button class="button button-block button-stable" ng-click="crearUsuario(ci, email, password, repassword)">
             Crear usuario
+        </button>
+        <button class="button button-block button-stable" ng-click="prueba()">
+            Crear 
         </button>
         </div>
     </ion-content>

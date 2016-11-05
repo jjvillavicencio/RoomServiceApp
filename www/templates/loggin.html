@@ -7,13 +7,13 @@
     <ion-content class="padding">
         <label class="item item-input item-floating-label">
             <span class="input-label">Email</span>
-            <input type="email" placeholder="Email" required>
+            <input type="email" placeholder="Email" ng-model="datos.correo" required>
         </label>
         <label class="item item-input item-floating-label">
             <span class="input-label">Contraseña</span>
-            <input type="password" placeholder="Contraseña" required>
+            <input type="password" placeholder="Contraseña" ng-model="datos.contra" required>
         </label>
-        <button class="button button-block button-stable">
+        <button class="button button-block button-stable" ng-click="loggin()">
             Iniciar Sesión
         </button>
         </div>

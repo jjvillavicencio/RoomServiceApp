@@ -1,4 +1,4 @@
-var starter = angular.module('starter', ['ionic', 'firebase','ngCordova']);
+var starter = angular.module('starter', ['ionic', 'firebase','ngCordova', 'ngStorage','angular-md5']);
 
 starter.run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
@@ -45,7 +45,7 @@ starter.config(function ($stateProvider, $urlRouterProvider) {
       views: {
         'roomService': {
           templateUrl: 'templates/registro.html',
-          controller: ''
+          controller: 'registroCtrl'
         }
       }
     })
@@ -54,7 +54,7 @@ starter.config(function ($stateProvider, $urlRouterProvider) {
       views: {
         'roomService': {
           templateUrl: 'templates/loggin.html',
-          controller: ''
+          controller: 'logginCtrl'
         }
       }
     });

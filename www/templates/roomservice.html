@@ -13,24 +13,54 @@
   </ion-header-bar>
 
   <ion-content class="padding has-header" on-swipe-right="toInf()">
-    <br>
-    <br>
-    <p style="color:#999999" align="center">
-      <i style="font-size:4rem" class="icon ion-coffee padding-top"></i>
-      <i style="font-size:6rem" class="icon ion-icecream"></i>
-      <i style="font-size:4rem" class="icon ion-pizza padding-top"></i>
-    </p>
-    <br>
-    <br> 
-    <div class="card">
-      <div class="item item-text-wrap">
-        <p>Para poder acceder a nuestro servico de pedidos a la habitación desde su mobil, es necesario posea una cuenta de usuario.</p>
-        <a class="button button-block button-outline button-energized" href="#/registro">
-          Registrarse
-        </a> 
-        <a class="button button-block button-outline button-balanced" href="#/loggin">
-          Iniciar Sesión
-        </a>
+    
+    <div ng-show="reg()">
+      <br>
+      <br>
+      <p style="color:#999999" align="center">
+        <i style="font-size:4rem" class="icon ion-coffee padding-top"></i>
+        <i style="font-size:6rem" class="icon ion-icecream"></i>
+        <i style="font-size:4rem" class="icon ion-pizza padding-top"></i>
+      </p>
+      <br>
+      <br> 
+      <div class="card">
+        <div class="item item-text-wrap">
+          <p>Para poder acceder a nuestro servico de pedidos a la habitación desde su mobil, es necesario posea una cuenta de usuario.</p>
+          <a class="button button-block button-outline button-energized" href="#/registro">
+            Registrarse
+          </a> 
+          <a class="button button-block button-outline button-balanced" href="#/loggin">
+            Iniciar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="perfil" ng-show="perfil()">
+      <div class="list card">
+        <ion-item class="profile-item profile-item-cabecera">
+          <div class="profile-picture big-profile-picture">
+            <img src="{{userData.icon}}">
+          </div>
+          <h2 class="profile-name dark">{{userData.nombre}}</h2>
+          <h2 class="profile-name dark">{{userData.apellido}}</h2>
+          <div class="profile-info">{{userData.email}}</div>
+        </ion-item>
+        <ion-item class="profile-item">
+          <div>
+            <div>Valor a pagar: $ <span class="tag-assertive">0.00</span></div>
+          </div>
+          <button class="button button-block button-outline button-balanced icon-left ion-clipboard button-positive" ng-click="logIn()">
+            Detalle Cuenta
+          </button>
+          <button class="button button-block button-outline button-balanced icon-left ion-bag button-positive" ng-click="logIn()">
+            Servicio a la habitación
+          </button>
+          <button class="button button-block button-outline button-assertive icon-left ion-log-out button-positive" ng-click="logout()">
+            Cerrar Sesión
+          </button>
+        </ion-item>
       </div>
     </div>
     
