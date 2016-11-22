@@ -57,6 +57,15 @@ starter.config(function ($stateProvider, $urlRouterProvider) {
           controller: 'logginCtrl'
         }
       }
+    })
+    .state('pedidos', {
+      url: '/pedidos',
+      views: {
+        'roomService': {
+          templateUrl: 'templates/pedidos.html',
+          controller: 'pedidosCtrl'
+        }
+      }
     });
 
   $urlRouterProvider.otherwise('/home');
