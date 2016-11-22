@@ -39,6 +39,7 @@ starter.controller('pedidosCtrl', function ($scope, $firebaseArray, $location, $
         var codigoPr = producto.codigoProducto;
         $scope.selection[codigoPr].cantidad = 1;
         $scope.selection[codigoPr].nombrePr = producto.nombreProducto;
+        $scope.selection[codigoPr].imagen = producto.imagen;
         $scope.suma();
     };
 
@@ -133,7 +134,7 @@ starter.controller('pedidosCtrl', function ($scope, $firebaseArray, $location, $
         var canPedidos = contar();
         for (var sel in $scope.selection) {
             console.log(sel);
-            console.log($scope.selection[sel].compra);
+            console.log($scope.selection[sel]);
             var cons = $scope.selection[sel].compra;
             if (cons) {
                 cont = cont + 1;
@@ -142,13 +143,14 @@ starter.controller('pedidosCtrl', function ($scope, $firebaseArray, $location, $
                 var cantidadPr = $scope.selection[sel].cantidad;
                 var precioUnit = $scope.selection[sel].precioUnit;
                 var disponibles = $scope.selection[sel].disponibles;
+                var imagenPro = $scope.selection[sel].imagen;
                 var key = $scope.selection[sel].key;
                 try {
                     misPedidos.push({
                         fechaPedido: fecha,
                         horaPedido: hora,
-                        /*nombreCliente: nombre,
-                        apellidoCliente: apellido,
+                        imagen: imagenPro,
+                        /*apellidoCliente: apellido,
                         habitacionCliente: habitacion,*/
                         productosPedidos: "" + cont + "/" + canPedidos,
                         codigoProducto: sel,

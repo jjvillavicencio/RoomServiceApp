@@ -1,0 +1,45 @@
+<html>
+<style>
+.button-large {
+  font-size: 15px;
+  line-height: 25px;
+  min-height: 5px;
+}
+</style>
+<ion-view view-title="Detalle de Cuenta">
+    <ion-nav-bar class="bar-energized">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content class="padding" on-swipe-right="toInf()">
+    <div ng-show="!lista" class="list card">
+      <div class="item item-body">
+        No posee un código activo.
+      </div>
+    </div>
+
+    <div ng-show="lista" class="list">
+      
+      <div class="item item-body balanced">
+        <i class="ion ion-card"></i>
+        <b>Valor a pagar</b>: <span class="assertive">{{sumatoria | currency}}</span>
+      </div>
+
+      <div>
+        <div class="list card" ng-repeat="producto in misPedidos">            
+            <img src="{{producto.imagen}}" style="width:45%; float:left;">
+            <h2>{{producto.nombreProducto}}</h2>
+            <p><b>Hora:</b>{{producto.horaPedido}}</p>
+            <p><b>Fecha:</b>{{producto.fechaPedido}}</p>
+            <div style="clear:left;">
+              <p class="badge badge-positive" style="width:45%;"> Cantidad:{{producto.cantidad}}</p>                
+              <p class="badge badge-assertive" style="width:45%;">Precio: {{producto.subTotal | currency}}</p>
+            </div>
+        </div>
+        <!-- <pre ng-bind="selection | json"></pre> -->
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+</html>

@@ -66,6 +66,15 @@ starter.config(function ($stateProvider, $urlRouterProvider) {
           controller: 'pedidosCtrl'
         }
       }
+    })
+    .state('detalle', {
+      url: '/detalle',
+      views: {
+        'roomService': {
+          templateUrl: 'templates/detalle.html',
+          controller: 'detalleCtrl'
+        }
+      }
     });
 
   $urlRouterProvider.otherwise('/home');
