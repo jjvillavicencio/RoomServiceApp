@@ -20,7 +20,8 @@ starter.controller('logginCtrl', function($scope, $rootScope, $state, $localStor
                 console.log(snapshot.key);
                 console.log(snapshot.val());
                 $localStorage["user"] = snapshot.val();
-                $state.go('roomService'); 
+                $localStorage["userID"] = snapshot.key;
+                $state.go('roomService');
             });
             $scope.$apply();
             
