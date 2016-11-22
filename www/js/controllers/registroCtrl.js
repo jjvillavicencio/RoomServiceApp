@@ -36,6 +36,8 @@ starter.controller('registroCtrl', function ($scope, Auth, $firebaseArray, $loca
                             console.log(clientes);
                             ref.child(ci).set({
                                     uid : firebaseUser.uid,
+                                    nombres: snapshot.val().nombres,
+                                    apellidos: snapshot.val().apellidos,
                                     email : email
                             });
                             $localStorage["user"] = snapshot.val();
