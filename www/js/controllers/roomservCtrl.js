@@ -1,4 +1,27 @@
 starter.controller('roomservCtrl', function ($scope, $state, $firebaseArray, $location, $ionicPopup, $interval, $filter, $localStorage, md5) {
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.apagar = 0.00;
+        $scope.codigo = null;
+        var ref = firebase.database().ref("clientes").child($localStorage['userID'] + '/uidspedidos');
+        ref.orderByChild("estado").equalTo('activo').on("child_added", function (snapshot) {
+            $scope.codigo = snapshot.val().uid;
+            $scope.lista = true;
+            var refPed = firebase.database().ref("pedidos").child($scope.codigo);
+            $scope.pedidos = $firebaseArray(refPed);
+            $scope.apagar = 0.00;
+            $scope.pedidos.$loaded()
+            .then(function(){
+                angular.forEach($scope.pedidos, function(pedido) {
+                    $scope.apagar += pedido.subTotal;
+                    console.log(pedido.subTotal);
+                })
+            });
+        });
+    });
+    
+    
+    
+
     var sesion;
     $scope.$on('$ionicView.beforeEnter', function(){
     
