@@ -26,7 +26,7 @@
       <br> 
       <div class="card">
         <div class="item item-text-wrap">
-          <p>Para poder acceder a nuestro servico de pedidos a la habitación desde su mobil, es necesario posea una cuenta de usuario.</p>
+          <p>Para poder acceder a nuestro servicio de pedidos a la habitación desde su movil, es necesario posea una cuenta de usuario.</p>
           <a class="button button-block button-outline button-energized" href="#/registro">
             Registrarse
           </a> 
@@ -49,14 +49,14 @@
         </ion-item>
         <ion-item class="profile-item">
           <div>
-            <div>Valor a pagar: $ <span class="tag-assertive">0.00</span></div>
+            <div>Valor a pagar:  <span class="tag-assertive">{{apagar|currency}}</span></div>
           </div>
           <button class="button button-block button-outline button-balanced icon-left ion-clipboard button-positive" ng-click="logIn()">
             Detalle Cuenta
           </button>
-          <button class="button button-block button-outline button-balanced icon-left ion-bag button-positive" ng-click="logIn()">
+          <a class="button button-block button-outline button-balanced icon-left ion-bag button-positive" href="#/pedidos">
             Servicio a la habitación
-          </button>
+          </a>
           <button class="button button-block button-outline button-assertive icon-left ion-log-out button-positive" ng-click="logout()">
             Cerrar Sesión
           </button>
