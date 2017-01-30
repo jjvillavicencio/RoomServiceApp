@@ -50,3 +50,10 @@
   font-weight: bold !important;
   text-transform: capitalize;
 }
+
+.errores{
+  background-color: #E1848F;
+  border: 1px solid #CE4844;
+  padding: 1px 5px 1px 5px;
+  color: #CE4844;
+}

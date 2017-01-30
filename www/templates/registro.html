@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <p>{{errores}}</p>
+        <p ng-if="errores" class="errores"><i class="icon ion-alert-circled"></i></i>{{errores}}</p>
         <div class="list">
             
             <label class="item item-input item-floating-label">
@@ -34,9 +34,6 @@
         </label>
             <button class="button button-block button-stable" ng-click="crearUsuario(ci, email, password, repassword)">
             Crear usuario
-        </button>
-        <button class="button button-block button-stable" ng-click="prueba()">
-            Crear 
         </button>
         </div>
     </ion-content>

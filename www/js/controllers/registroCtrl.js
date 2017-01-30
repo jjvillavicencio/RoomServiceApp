@@ -10,12 +10,14 @@ starter.controller('registroCtrl', function ($scope, Auth, $firebaseArray, $loca
     };
     
     $scope.crearUsuario = function(ci, email, password, repassword){
+        bandera = false;
         if(ci == null || email == null || password == null || repassword == null){
             $scope.errores = "Todos los campos son obligatorios";
         }else{
             firebase.database().ref('clientes').orderByKey()
             .equalTo(""+ci)
             .on("child_added", function(snapshot) {
+                bandera = true;
                 console.log(snapshot);
                 console.log('aquis');
 
@@ -55,6 +57,9 @@ starter.controller('registroCtrl', function ($scope, Auth, $firebaseArray, $loca
                                      
                 }
             });
+            if (bandera == false){
+                $scope.errores = "El usuario que desea registrar no esta dado de alta en el hotel"; 
+            }
                    
         }
     }
