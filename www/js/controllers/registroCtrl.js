@@ -36,7 +36,7 @@ starter.controller('registroCtrl', function ($scope, Auth, $firebaseArray, $loca
                             var ref = firebase.database().ref().child('clientes');
                             var clientes = $firebaseArray(ref);
                             console.log(clientes);
-                            ref.child(ci).set({
+                            ref.child(ci).update({
                                     uid : firebaseUser.uid,
                                     nombres: snapshot.val().nombres,
                                     apellidos: snapshot.val().apellidos,
